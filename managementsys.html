@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Library Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], input[type="number"] {
+      padding: 10px;
+      flex: 1;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .delete-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Library Management System</h1>
+
+    <form id="book-form">
+      <input type="text" id="title" placeholder="Book Title" required>
+      <input type="text" id="author" placeholder="Author" required>
+      <input type="number" id="year" placeholder="Year" required>
+      <button type="submit">Add Book</button>
+    </form>
+
+    <table id="book-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Year</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Book entries will go here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const bookForm = document.getElementById('book-form');
+    const bookTableBody = document.querySelector('#book-table tbody');
+
+    bookForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const title = document.getElementById('title').value.trim();
+      const author = document.getElementById('author').value.trim();
+      const year = document.getElementById('year').value.trim();
+
+      if (title && author && year) {
+        addBookToTable(title, author, year);
+        bookForm.reset();
+      }
+    });
+
+    function addBookToTable(title, author, year) {
+      const row = document.createElement('tr');
+
+      row.innerHTML = `
+        <td>${title}</td>
+        <td>${author}</td>
+        <td>${year}</td>
+        <td><button class="delete-btn" onclick="deleteBook(this)">Delete</button></td>
+      `;
+
+      bookTableBody.appendChild(row);
+    }
+
+    function deleteBook(button) {
+      const row = button.closest('tr');
+      row.remove();
+    }
+  </script>
+
+</body>
+</html>
